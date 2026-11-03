@@ -232,24 +232,16 @@ async function signupUser(event) {
     }
 
 
-    const { data, error } =
-        await window.supabaseClient.auth.signUp({
-
-            email: email,
-
-            password: password,
-
-            options: {
-
-                data: {
-
-                    full_name: fullName
-
-                }
-
-            }
-
-        });
+const { data, error } = await window.supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+        emailRedirectTo: "https://moneymapfinance.netlify.app/index.html",
+        data: {
+            full_name: fullName
+        }
+    }
+});
 
 
     if (signupButton) {
