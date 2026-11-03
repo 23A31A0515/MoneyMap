@@ -447,26 +447,17 @@ async function checkExistingSession() {
         return;
     }
 
-    const { data, error } = await window.supabaseClient.auth.getSession();
+    const { data, error } =
+        await window.supabaseClient.auth.getSession();
 
     if (error) {
         console.error("Session check error:", error.message);
         return;
     }
 
-    const session = data.session;
-    const currentPage = window.location.pathname;
-
-    if (session) {
-    if (currentPage.endsWith("/auth.html") ||
-        currentPage === "auth.html") {
-        window.location.replace("./index.html");
-    }
+    // Do not redirect automatically here.
+    // Let login/signup handle navigation.
 }
-        }
-
-
-
 // ========================================
 // EVENT LISTENERS
 // ========================================
