@@ -442,38 +442,32 @@ async function updateNewPassword(event) {
 // ========================================
 
 async function checkExistingSession() {
-
     if (!window.supabaseClient) {
-
-        console.error("Supabase client not initialized.");
-
-        showAuthMessage(
-            "Unable to connect to the server. Please refresh."
-        );
-
+        console.error("Supabase client not initialized");
         return;
     }
 
-
-    const { data, error } =
-        await window.supabaseClient.auth.getSession();
-
+    const { data, error } = await window.supabaseClient.auth.getSession();
 
     if (error) {
-
-        console.error(
-            "Session check error:",
-            error.message
-        );
-
+        console.error("Session check error:", error.message);
         return;
     }
 
+    const session = data.session;
+    const currentPage = window.location.pathname;
 
-    if (data.session) {
-
-        window.location.replace("index.html");
-
+    if (session) {
+        // User is logged in: stay on dashboard
+        if (currentPage.includes("auth.html")) {
+            window.location.replace("index.html");
+        }
+    } else {
+        // User is not logged in: stay on login page
+        if (currentPage.includes("index.html") ||
+            currentPage.endsWith("/")) {
+            window.location.replace("auth.html");
+        }
     }
 }
 
