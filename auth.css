@@ -1,0 +1,197 @@
+
+/* ================= GENERAL ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #e8f5ed, #f5faf7);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #26382e;
+}
+
+
+/* ================= CONTAINER ================= */
+
+.auth-container {
+    width: 100%;
+    max-width: 430px;
+}
+
+
+/* ================= BRAND ================= */
+
+.brand {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.brand-icon {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.brand h1 {
+    color: #218653;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.brand p {
+    color: #75877b;
+    margin-top: 8px;
+}
+
+
+/* ================= AUTH CARD ================= */
+
+.auth-card {
+    background: white;
+    padding: 32px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(30, 90, 55, 0.08);
+}
+
+.auth-card h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #839087;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+
+/* ================= FORM ================= */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-top: 14px;
+}
+
+input {
+    padding: 13px 14px;
+    border: 1px solid #dce6df;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+    width: 100%;
+}
+
+input:focus {
+    border-color: #29935d;
+    box-shadow: 0 0 0 3px rgba(41, 147, 93, 0.1);
+}
+
+
+/* ================= BUTTON ================= */
+
+button {
+    margin-top: 24px;
+    padding: 14px;
+    background: #29935d;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #207849;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* ================= LINKS ================= */
+
+a {
+    color: #29935d;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+.switch-auth {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #75877b;
+}
+
+
+/* ================= MESSAGES ================= */
+
+#auth-message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: none;
+}
+
+#auth-message.success {
+    display: block;
+    background: #e5f5eb;
+    color: #207849;
+}
+
+#auth-message.error {
+    display: block;
+    background: #fdeaea;
+    color: #b42323;
+}
+
+
+/* ================= HIDDEN ================= */
+
+.hidden {
+    display: none;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 25px 20px;
+    }
+
+    .brand h1 {
+        font-size: 28px;
+    }
+}

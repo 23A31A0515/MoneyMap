@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - MoneyMap</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="settings.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+</head>
+
+<body>
+
+    <div class="settings-page">
+
+        <header class="settings-header">
+            <button id="back-to-dashboard" class="back-btn">
+                ← Back to Dashboard
+            </button>
+
+            <h1>⚙️ Account Settings</h1>
+            <p>Manage your MoneyMap account and security.</p>
+        </header>
+
+        <main class="settings-container">
+
+            <!-- Account Information -->
+            <section class="settings-card">
+
+                <h2>Account Information</h2>
+                <p>View your registered email and update your name.</p>
+
+                <div class="form-group">
+                    <label for="registered-email">Registered Email</label>
+                    <input
+                        type="email"
+                        id="registered-email"
+                        readonly
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input
+                        type="text"
+                        id="full-name"
+                        placeholder="Enter your full name"
+                >
+                </div>
+
+                <button id="save-profile-btn" class="save-btn">
+                    Save Profile
+                </button>
+
+            </section>
+
+            <!-- Change Password -->
+            <section class="settings-card">
+
+                <h2>Change Password</h2>
+                <p>Update your password to keep your account secure.</p>
+
+                <form id="change-password-form">
+
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input
+                            type="password"
+                            id="current-password"
+                            placeholder="Enter current password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input
+                            type="password"
+                            id="new-password"
+                            placeholder="Enter new password"
+                            minlength="6"
+                            required
+                    >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm New Password</label>
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            placeholder="Confirm new password"
+                            minlength="6"
+                            required
+                    >
+                    </div>
+
+                    <button type="submit" class="save-btn">
+                        Update Password
+                    </button>
+
+                </form>
+
+            </section>
+
+            <!-- Logout -->
+            <section class="settings-card logout-card">
+
+                <h2>Logout</h2>
+                <p>Sign out of your MoneyMap account on this device.</p>
+
+                <button id="logout-btn" class="settings-danger-btn">
+                    Logout
+                </button>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="settings.js"></script>
+
+</body>
+</html>

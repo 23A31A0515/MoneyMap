@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyMap | Account</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+    <div class="auth-container">
+
+        <div class="brand">
+            <div class="brand-icon">💰</div>
+            <h1>MoneyMap</h1>
+            <p>Take control of your money.</p>
+        </div>
+
+        <!-- LOGIN -->
+        <div class="auth-card" id="login-section">
+            <h2>Welcome back!</h2>
+            <p class="subtitle">Login to your MoneyMap account</p>
+
+            <form id="login-form">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+
+                <button type="submit" id="login-btn">Login</button>
+            </form>
+
+            <p class="forgot-password">
+                <a href="#" id="forgot-password-link">Forgot password?</a>
+            </p>
+
+            <p class="switch-auth">
+                Don't have an account?
+                <a href="#" id="show-signup">Sign up</a>
+            </p>
+        </div>
+
+
+        <!-- SIGNUP -->
+        <div class="auth-card hidden" id="signup-section">
+            <h2>Create an account</h2>
+            <p class="subtitle">Start managing your finances today</p>
+
+            <form id="signup-form">
+                <label for="signup-name">Full name</label>
+                <input type="text" id="signup-name" placeholder="Enter your full name" required>
+
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" placeholder="Enter your email" required>
+
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="At least 6 characters" minlength="6" required>
+
+                <label for="confirm-password">Confirm password</label>
+                <input type="password" id="confirm-password" placeholder="Re-enter your password" minlength="6" required>
+
+                <button type="submit" id="signup-btn">Create Account</button>
+            </form>
+
+            <p class="switch-auth">
+                Already have an account?
+                <a href="#" id="show-login">Login</a>
+            </p>
+        </div>
+
+
+        <!-- FORGOT PASSWORD -->
+        <div class="auth-card hidden" id="reset-section">
+            <h2>Reset your password</h2>
+            <p class="subtitle">We'll send you a password reset link</p>
+
+            <form id="reset-form">
+                <label for="reset-email">Email address</label>
+                <input type="email" id="reset-email" placeholder="Enter your registered email" required>
+
+                <button type="submit" id="reset-btn">Send Reset Link</button>
+            </form>
+
+            <p class="switch-auth">
+                Remember your password?
+                <a href="#" id="back-to-login">Login</a>
+            </p>
+        </div>
+
+
+        <!-- MESSAGE -->
+        <div id="auth-message"></div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+
+</body>
+</html>

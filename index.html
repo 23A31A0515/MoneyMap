@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyMap - Personal Finance Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">💰</span>
+                <h2>MoneyMap</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-page="overview">
+                    <span>🏠</span> Overview
+                </button>
+
+                <button class="nav-item" data-page="monthly-expenses">
+                    <span>📅</span> Monthly Expenses
+                </button>
+
+                <button class="nav-item" data-page="transactions">
+                    <span>💳</span> All Transactions
+                </button>
+
+                <button class="nav-item" data-page="analysis">
+                    <span>📊</span> Financial Analysis
+                </button>
+
+                <button class="nav-item" data-page="history">
+                    <span>📈</span> History
+                </button>
+
+                <button id="settings-page-btn" class="nav-item">
+                    <span>⚙️</span> Settings
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Manage your money wisely 💚</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Header -->
+            <header class="top-header">
+                <div>
+                    <h1 id="page-title">Overview</h1>
+                    <p id="welcome-message">Welcome back! Here's your financial overview.</p>
+                </div>
+
+                <div class="header-actions">
+                    <button class="add-transaction-btn" id="add-transaction-btn">
+                        + Add Transaction
+                    </button>
+                </div>
+            </header>
+
+            <!-- Overview Page -->
+            <section id="overview-page" class="page active">
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+
+                    <div class="summary-card balance-card">
+                        <div class="card-header">
+                            <span class="card-label">Total Balance</span>
+                            <span class="card-icon">💰</span>
+                        </div>
+                        <h2 id="total-balance">₹0.00</h2>
+                        <p>Your current balance</p>
+                    </div>
+
+                    <div class="summary-card income-card">
+                        <div class="card-header">
+                            <span class="card-label">Total Income</span>
+                            <span class="card-icon">📥</span>
+                        </div>
+                        <h2 id="total-income">₹0.00</h2>
+                        <p>This month</p>
+                    </div>
+
+                    <div class="summary-card expense-card">
+                        <div class="card-header">
+                            <span class="card-label">Total Expenses</span>
+                            <span class="card-icon">📤</span>
+                        </div>
+                        <h2 id="total-expenses">₹0.00</h2>
+                        <p>This month</p>
+                    </div>
+
+                    <div class="summary-card savings-card">
+                        <div class="card-header">
+                            <span class="card-label">Net Savings</span>
+                            <span class="card-icon">💎</span>
+                        </div>
+                        <h2 id="net-savings">₹0.00</h2>
+                        <p>This month</p>
+                    </div>
+
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="content-card">
+                    <div class="section-header">
+                        <div>
+                            <h2>Recent Transactions</h2>
+                            <p>Your latest financial activities</p>
+                        </div>
+
+                        <button class="view-all-btn" id="view-all-transactions">
+                            View All →
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-transactions-body">
+                    </tbody>
+                </table>
+            </div>
+                </div>
+
+            </section>
+
+            <!-- Monthly Expenses Page -->
+            <section id="monthly-expenses-page" class="page">
+
+                <div class="content-card">
+                    <div class="section-header">
+                        <div>
+                            <h2>Monthly Expenses</h2>
+                            <p>Track your expenses month by month</p>
+                        </div>
+
+                        <div class="month-selector">
+                            <button id="previous-month">←</button>
+                            <span id="selected-month">Month</span>
+                            <button id="next-month">→</button>
+                        </div>
+                    </div>
+
+                    <div class="monthly-summary">
+                        <div class="monthly-summary-card">
+                            <p>Total Income</p>
+                            <h3 id="monthly-income">₹0.00</h3>
+                        </div>
+
+                        <div class="monthly-summary-card">
+                            <p>Total Expenses</p>
+                            <h3 id="monthly-expenses">₹0.00</h3>
+                        </div>
+
+                        <div class="monthly-summary-card">
+                            <p>Net Savings</p>
+                            <h3 id="monthly-savings">₹0.00</h3>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthly-transactions-body">
+                    </tbody>
+                </table>
+            </div>
+                </div>
+
+            </section>
+
+            <!-- All Transactions Page -->
+            <section id="transactions-page" class="page">
+
+                <div class="content-card">
+                    <div class="section-header">
+                        <div>
+                            <h2>All Transactions</h2>
+                            <p>View, filter, edit, and export your transactions</p>
+                        </div>
+
+                        <button id="export-csv-btn" class="export-btn">
+                            ⬇ Export CSV
+                        </button>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="filters-container">
+
+                        <div class="filter-group">
+                            <label for="filter-type">Transaction Type</label>
+                            <select id="filter-type">
+                                <option value="all">All Types</option>
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+            <label for="filter-month">Month</label>
+            <select id="filter-month">
+                <option value="all">All Months</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="filter-from-date">From Date</label>
+            <input type="date" id="filter-from-date">
+        </div>
+
+        <div class="filter-group">
+            <label for="filter-to-date">To Date</label>
+            <input type="date" id="filter-to-date">
+        </div>
+
+        <button id="clear-filters-btn" class="clear-filter-btn">
+            Clear Filters
+        </button>
+
+                    </div>
+
+                    <!-- Transactions Table -->
+                    <div class="table-container">
+                        <table class="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="all-transactions-body">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="transactions-empty-message" class="empty-message">
+                        No transactions found.
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Financial Analysis Page -->
+            <section id="analysis-page" class="page">
+
+                <div class="analysis-grid">
+
+                    <div class="content-card">
+                        <div class="section-header">
+                            <div>
+                                <h2>Expense Breakdown</h2>
+                                <p>Where your money goes</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="expense-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <div class="section-header">
+                            <div>
+                                <h2>Income vs Expenses</h2>
+                                <p>Compare your monthly income and expenses</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="income-expense-chart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="content-card trend-card">
+                    <div class="section-header">
+                        <div>
+                            <h2>Financial Trend</h2>
+                            <p>Track your income and expenses over time</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-container trend-chart-container">
+                        <canvas id="trend-chart"></canvas>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- History Page -->
+            <section id="history-page" class="page">
+
+                <div class="content-card">
+                    <div class="section-header">
+                        <div>
+                            <h2>Financial History</h2>
+                            <p>Your monthly financial performance</p>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Income</th>
+                                    <th>Expenses</th>
+                                    <th>Net Savings</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="history-transactions-body">
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Add / Edit Transaction Modal -->
+    <div class="modal-overlay" id="transaction-modal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+                <h2 id="modal-title">Add Transaction</h2>
+                <button class="close-modal-btn" id="close-modal-btn">×</button>
+            </div>
+
+            <form id="transaction-form">
+
+                <div class="form-group">
+                    <label for="transaction-description">Description</label>
+                    <input
+                        type="text"
+                        id="transaction-description"
+                        placeholder="e.g. Grocery shopping"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-amount">Amount (₹)</label>
+                    <input
+                        type="number"
+                        id="transaction-amount"
+                        placeholder="e.g. 500"
+                        min="0.01"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-type">Type</label>
+                    <select id="transaction-type" required>
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-category">Category</label>
+                    <select id="transaction-category" required>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Education">Education</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Health">Health</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Freelance">Freelance</option>
+                        <option value="Investment">Investment</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-date">Date</label>
+                    <input type="date" id="transaction-date" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" id="cancel-transaction-btn">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        Save Transaction
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Transaction Details Modal -->
+    <div class="modal-overlay" id="transaction-details-modal">
+
+        <div class="modal details-modal">
+
+            <div class="modal-header">
+                <h2>Transaction Details</h2>
+                <button class="close-modal-btn" id="close-details-modal-btn">×</button>
+            </div>
+
+            <div class="transaction-details-content">
+                <div class="details-item">
+                    <span>Description</span>
+                    <strong id="details-description">-</strong>
+                </div>
+
+                <div class="details-item">
+                    <span>Amount</span>
+                    <strong id="details-amount">-</strong>
+                </div>
+
+                <div class="details-item">
+                    <span>Type</span>
+                    <strong id="details-type">-</strong>
+                </div>
+
+                <div class="details-item">
+                    <span>Category</span>
+                    <strong id="details-category">-</strong>
+                </div>
+
+                <div class="details-item">
+                    <span>Date</span>
+                    <strong id="details-date">-</strong>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="cancel-btn" id="close-details-btn">
+                    Close
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
