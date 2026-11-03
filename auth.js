@@ -281,10 +281,10 @@ async function signupUser(event) {
 
     } else {
 
-        showAuthMessage(
-            "Account created! Please check your email to verify your account.",
-            false
-        );
+showAuthMessage(
+    "🎉 Account created successfully! Please check your inbox and verify your email before logging in.",
+    false
+);
 
     }
 }
