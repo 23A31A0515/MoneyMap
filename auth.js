@@ -472,7 +472,7 @@ async function checkExistingSession() {
 
     if (data.session) {
 
-        window.location.href = "index.html";
+        window.location.replace("index.html");
 
     }
 }
