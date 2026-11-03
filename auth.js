@@ -458,18 +458,19 @@ async function checkExistingSession() {
     const currentPage = window.location.pathname;
 
     if (session) {
-        // User is logged in: stay on dashboard
-        if (currentPage.includes("auth.html")) {
-            window.location.replace("index.html");
-        }
-    } else {
-        // User is not logged in: stay on login page
-        if (currentPage.includes("index.html") ||
-            currentPage.endsWith("/")) {
-            window.location.replace("auth.html");
-        }
+    // User is logged in
+    if (currentPage.includes("auth.html")) {
+        window.location.href = "index.html";
+    }
+} else {
+    // User is not logged in
+    if (currentPage.includes("index.html") &&
+        !currentPage.includes("auth.html")) {
+        window.location.href = "auth.html";
     }
 }
+        }
+
 
 
 // ========================================
